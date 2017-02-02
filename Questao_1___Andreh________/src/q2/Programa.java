@@ -9,13 +9,19 @@ public class Programa {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		TestadorSubgrupo testador = new TestadorSubgrupo();
-		int n, conjunto[], k;
+		Auxiliar auxiliar = new Auxiliar(); //Classe auxiliar que contém métodos auxiliares para executar o algoritmo e verificar se é subgrupo ou não.
+		int n, conjunto[], k, z[];
 		boolean resultado;
 		
 		System.out.println("Digite o valor de n: ");
 		n = sc.nextInt();
 		sc.nextLine(); //limpando buffer do teclado.
+		z = new int[n];
+		
+		z = auxiliar.gerarZn(n);
+		
+		
+		
 		
 		/*O número máximo de elementos que o usuário poderá digitar
 		 * é n, se não vai dar ArrayIndexOutOfBoundsException
@@ -32,15 +38,15 @@ public class Programa {
 			conjunto[i] = sc.nextInt();
 			sc.nextLine();
 		}
-		 
 		
-		resultado = testador.testeSubgrupo(conjunto, n);
+		resultado = auxiliar.ehSubconjunto(z, conjunto);
 		
-		if(resultado) {
-			System.out.println("É subconjunto.");
+		if(resultado == true){
+			
 		}else{
 			System.out.println("Não é subconjunto.");
 		}
+		 
 
 	}
 
