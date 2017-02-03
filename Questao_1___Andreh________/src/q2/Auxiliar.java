@@ -11,7 +11,7 @@ public class Auxiliar {
 		
 		z = this.gerarZn(n);
 		
-		fechamento = this.fechamento(conjunto);
+		//fechamento = this.fechamento(conjunto);
 		
 		
 		
@@ -29,7 +29,15 @@ public class Auxiliar {
 		return z;
 	}
 	
-	public boolean fechamento(int[] conjunto) {
+	public boolean fechamento(int[] G, int[] H, int n) {
+		int[] soma = new int[n];
+		
+		for(int i = 0; i < G.length; i++) {
+			for(int j = 0; j < H.length; j++) {
+				
+			}
+		}
+		
 		
 		return false;
 	}
