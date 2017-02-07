@@ -76,8 +76,16 @@ public class Auxiliar {
 	}
 	
 	//verifica se a rodem de H divide a ordem de Zn
-	public void ordemDivide() {
+	public boolean ordemDivide(ArrayList<Integer> Z, ArrayList<Integer> H) throws OrdemNaodivideException {
+		boolean resultado = false;
 		
+		if( (Z.size() % H.size() ) != 0) {
+			throw new OrdemNaodivideException();
+		}else {
+			resultado = true;
+		}
+		
+		return resultado;
 	}
 	
 	//verifica se todo elemento do conjunto tem inverso
