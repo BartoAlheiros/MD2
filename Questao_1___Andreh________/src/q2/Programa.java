@@ -13,25 +13,25 @@ public class Programa {
 		Scanner sc = new Scanner(System.in);
 		Auxiliar auxiliar = new Auxiliar(); //Classe auxiliar que contém métodos auxiliares para executar o algoritmo e verificar se é subgrupo ou não.
 		ArrayList <Integer> conjunto = new ArrayList<Integer>();
-		ArrayList <Integer> z = new ArrayList<Integer>();
+		ArrayList <Integer> Z = new ArrayList<Integer>();
 		int n, k = 0;
-		boolean resultadoSubconjunto = false, resultadoFechamento = false;
+		boolean resultadoSubconjunto = false, resultadoFechamento = false, resultadoIdentidade = false;
 		
 		System.out.println("Digite o valor de n: ");
 		n = sc.nextInt();
 		sc.nextLine(); //limpando buffer do teclado.
 		
 		
-		z = auxiliar.gerarZn(n);
+		Z = auxiliar.gerarZn(n);
 		
-		System.out.println("Z" + n + " = " + Arrays.toString(z.toArray()));
+		System.out.println("Z" + n + " = " + Arrays.toString(Z.toArray()));
 
 		
 		do{
 			k = auxiliar.recebeK();
 			
 			try {
-				auxiliar.trataK(k);
+				auxiliar.ehVazio(k);
 			} catch (ConjuntoVazioException e1) {
 				System.err.println(e1.getMessage());
 			}
@@ -45,22 +45,28 @@ public class Programa {
 		}
 		
 		try {
-			resultadoSubconjunto = auxiliar.ehSubconjunto(z, conjunto);
+			resultadoSubconjunto = auxiliar.ehSubconjunto(Z, conjunto);
 			if(resultadoSubconjunto == true) {
 				System.out.println("É subconjunto.");
 			}
-		} catch (NaoEhSubconjuntoException e) {
+		} catch (NaoEhsubconjuntoException e) {
 			System.err.println(e.getMessage());
 			System.exit(0);
 		}
 		
 		try {
-			resultadoFechamento = auxiliar.fechamento(z, conjunto);
+			resultadoIdentidade = auxiliar.temIdentidade(Z);
+		} catch (NaoContemidentidadeException e1) {
+			System.out.println(e1.getMessage());
+		}
+		
+		try {
+			resultadoFechamento = auxiliar.fechamento(Z, conjunto);
 		} catch (NaoHafechamentoException e) {
 			System.err.println(e.getMessage());
 		}
 		
-		if(resultadoSubconjunto == true && resultadoFechamento == true) {
+		if(resultadoIdentidade == true && resultadoSubconjunto == true && resultadoFechamento == true) {
 			System.out.println("É subgrupo.");
 		}else{
 			System.out.println("Não é subgrupo");
