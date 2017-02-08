@@ -12,10 +12,10 @@ public class Programa {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Auxiliar auxiliar = new Auxiliar(); //Classe auxiliar que contém métodos auxiliares para executar o algoritmo e verificar se é subgrupo ou não.
-		ArrayList <Integer> conjunto = new ArrayList<Integer>();
+		ArrayList <Integer> H = new ArrayList<Integer>();
 		ArrayList <Integer> Z = new ArrayList<Integer>();
 		int n, k = 0;
-		boolean resultadoSubconjunto = false, resultadoFechamento = false, resultadoIdentidade = false;
+		boolean resultadoSubconjunto = false, resultadoFechamento = false, resultadoIdentidade = false, resultadoOrdemDivide = false, resultadoInverso = false;
 		
 		System.out.println("Digite o valor de n: ");
 		n = sc.nextInt();
@@ -39,13 +39,13 @@ public class Programa {
 			
 
 		for(int i = 0; i < k; i++) {
-			System.out.print("Digite o valor do "+ (i + 1) + "o número: ");
-			conjunto.add(sc.nextInt());
+			System.out.print("Digite o valor do "+ (i + 1) + "o elemento: ");
+			H.add(sc.nextInt());
 			sc.nextLine();
 		}
 		
 		try {
-			resultadoSubconjunto = auxiliar.ehSubconjunto(Z, conjunto);
+			resultadoSubconjunto = auxiliar.ehSubconjunto(Z, H);
 			if(resultadoSubconjunto == true) {
 				System.out.println("É subconjunto.");
 			}
@@ -55,18 +55,33 @@ public class Programa {
 		}
 		
 		try {
-			resultadoIdentidade = auxiliar.temIdentidade(Z);
+			resultadoIdentidade = auxiliar.temIdentidade(H);
+			if(resultadoIdentidade == true) {
+				System.out.println("Tem identidade");
+			}
 		} catch (NaoContemidentidadeException e1) {
-			System.out.println(e1.getMessage());
+			System.err.println(e1.getMessage());
 		}
 		
 		try {
-			resultadoFechamento = auxiliar.fechamento(Z, conjunto);
+			resultadoOrdemDivide = auxiliar.ordemDivide(Z, H);
+		} catch (OrdemNaodivideException e1) {
+			System.err.println(e1.getMessage());
+		}
+		
+		try {
+			resultadoInverso = auxiliar.temInverso(Z, H);
+		} catch (NaoTeminversoException e1) {
+			System.err.println(e1.getMessage());
+		}
+		
+		try {
+			resultadoFechamento = auxiliar.fechamento(Z, H);
 		} catch (NaoHafechamentoException e) {
 			System.err.println(e.getMessage());
 		}
 		
-		if(resultadoIdentidade == true && resultadoSubconjunto == true && resultadoFechamento == true) {
+		if(resultadoIdentidade == true && resultadoSubconjunto == true && resultadoOrdemDivide == true && resultadoInverso == true && resultadoFechamento == true) {
 			System.out.println("É subgrupo.");
 		}else{
 			System.out.println("Não é subgrupo");

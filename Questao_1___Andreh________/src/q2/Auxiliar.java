@@ -91,25 +91,26 @@ public class Auxiliar {
 	//verifica se todo elemento do conjunto tem inverso
 	public boolean temInverso(ArrayList<Integer> Z, ArrayList<Integer> H) throws NaoTeminversoException {
 		ArrayList<Boolean> J = new ArrayList<Boolean>();
-		boolean resultado = false, resultadoFinal = false;
+		boolean resultado = false;
 		int k = H.size();
 		
 		if(k >= 3){
 
 
 			for(k = k - 1; k > 0; k--){
-				for(int j = k - 1; j > -1; j--) {
+				for(int j = k; j > -1; j--) {
 
 					if((H.get(k) + H.get(j) ) % Z.size() != 0 ) {                  /*Para cada posição de Z eu verifico se a soma de alguma dupla de H módulo n é igual a esta posição. Se não tiver nenhuma*/
-						resultado = false;
+						J.add(false);
 					}else {
-						resultado = true;
+						J.add(true);
 					}
 					
-					if(k == 1 && j == 0 && resultado == false) {
-						resultadoFinal = false;
+					if(J.contains(true)) {
+						resultado = true;
 					}else {
-						resultadoFinal = true;
+						resultado = false;
+						throw new NaoTeminversoException();
 					}
 				}	
 			}	
@@ -118,14 +119,14 @@ public class Auxiliar {
 
 		}else if(k < 3){
 			if(( H.get(1) + H.get(0) ) % Z.size() != 0 ) {
-				resultadoFinal = false;
+				resultado = false;
 				throw new NaoTeminversoException();
 			}else {
-				resultadoFinal = true;
+				resultado = true;
 			}
 		}
 		
-		return resultadoFinal;
+		return resultado;
 	}
 	
 	// G eh o grupo principal e H, o candidato a subgrupo de G;
