@@ -26,10 +26,11 @@ public class Programa {
 		
 		System.out.println("Z" + n + " = " + Arrays.toString(Z.toArray()));
 
-		
 		do{
-			k = auxiliar.recebeK();
-			
+			System.out.println("\nDigite a quantidade de elementos do candidato a subgrupo: ");
+			k = sc.nextInt();
+			sc.nextLine();
+ 
 			try {
 				auxiliar.ehVazio(k);
 			} catch (ConjuntoVazioException e1) {
